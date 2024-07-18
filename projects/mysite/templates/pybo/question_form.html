@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'question_form.css' %}">
+<div class="container">
+	<h3>New Question</h3>
+	<form method="post">
+		{% csrf_token %}
+		{% if form.errors %}
+		<div class="alert" role="alert">
+		{% for field in form %}
+			{% if field.errors %}
+			<strong>{{field.label}}</strong>
+			{{field.errors}}
+			{% endif %}
+		{% endfor %}
+		</div>
+		{% endif %}
+		<input type="text" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}" class="subject-form" placeholder="Title">
+		<textarea name="content" id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+		<button type="submit">Save</button>
+	</form>
+</div>
+{% endblock %}

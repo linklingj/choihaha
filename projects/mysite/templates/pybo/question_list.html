@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'question_list.css' %}">
+
+<h1>Questions!</h1>
+{% if question_list %}
+<div class="container">
+	<table>
+		<thead>
+			<tr>
+				<th>title</th>
+				<th>views</th>
+				<th>date</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for question in question_list %}
+			<tr>
+				<td>
+					<a href="{% url 'pybo:detail' question.id %}" class="question-link">{{question.subject}}</a>
+					{% if question.answer_set.count > 0 %}
+						<span class="small">({{question.answer_set.count}})</span>
+					{% endif %}
+				</td>
+				<td>123</td>
+				<td>{{question.create_date|date:"Y.m.d H:i"}}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<a href="{% url 'pybo:question_create' %}" class="button">Create Question</a>
+</div>
+{% else %}
+	<p>No questions available</p>
+{% endif %}
+
+{% endblock %}

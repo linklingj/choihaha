@@ -1,0 +1,154 @@
+<!-- <nav class="navbar">
+	<div class="logo">MyLogo</div>
+	<div class="menu-button" id="menuButton">☰</div>
+	<div class="menu" id="menu">
+		<a href="#" class="menu-item">Login</a>
+	</div>
+</nav>
+
+{% load static %}
+<script src="{% static 'main.js' %}"></script> -->
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'navbar.css' %}">
+</head>
+<header>
+    <div id="toggleBtn">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <section id="sub">
+        <ul>
+            <li><a href="/join">회원가입</a></li>
+            <li><a href="/login">로그인</a></li>
+        </ul>
+    </section>
+    <section id="main">
+        <div class="logo">
+            <a href="/pybo">
+            <span class="title">최하하</span>
+            <span class="betaText">βeta</span>
+            </a>
+        </div>
+    </section>
+    <section id="nav">
+        <div class="navWrap">
+            <nav>
+                <ul>
+                    <li style="background-color: #0B4C5F;">
+                        <div class="menu">
+                            <a style="font-weight: bold; color: #F7FE2E;" href="/best">
+                            👍인기글
+                            </a>
+                            <div class="dropdownBtn">
+                                <i class="fa-solid fa-caret-up"></i>
+                            </div>
+                        </div>
+                        <ul class="active ">
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: bold; " href="/best">
+                                👍전체 인기글
+                                </a>
+                            </li>
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: bold; " href="/humor">
+                                🏛️알렉산드리아 짤 도서관
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="background-color: inherit;">
+                        <div class="menu">
+                            <a style="font-weight: bold; " href="/new">
+                            전체글
+                            </a>
+                            <div class="dropdownBtn">
+                                <i class="fa-solid fa-caret-up"></i>
+                            </div>
+                        </div>
+                        <ul class="active ">
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/boards">
+                                전체 게시판 목록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="background-color: inherit;">
+                        <div class="menu">
+                            <a style="font-weight: bold; " href="/new/chim">
+                            침착맨
+                            </a>
+                            <div class="dropdownBtn">
+                                <i class="fa-solid fa-caret-up"></i>
+                            </div>
+                        </div>
+                        <ul class="active ">
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/dogkkaepal">
+                                🥥독깨팔
+                                </a>
+                            </li>
+                            <hr>
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/request_find">
+                                🍳침투부 찾아요 &amp; 공유해요
+                                </a>
+                            </li>
+                            <hr>
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/chim_painting">
+                                🎪침착맨의 그림
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="background-color: inherit;">
+                        <div class="menu">
+                            <a style="font-weight: bold; " href="/new/humor">
+                            웃음
+                            </a>
+                            <div class="dropdownBtn">
+                                <i class="fa-solid fa-caret-up"></i>
+                            </div>
+                        </div>
+                        <ul class="active ">
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: bold; " href="/humor">
+                                🏛️알렉산드리아 짤 도서관
+                                </a>
+                            </li>
+                            <hr>
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/humor_try">
+                                🌅짤
+                                </a>
+                            </li>
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/humor_user">
+                                😄유머
+                                </a>
+                            </li>
+                            <li style="background-color: inherit;">
+                                <a style="font-weight: normal; " href="/story">
+                                📖이야기&amp;썰
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="background-color: inherit;">
+                        <div class="menu">
+                            <a style="font-weight: bold; " href="/new/sports">
+                            스포츠
+                            </a>
+                            <div class="dropdownBtn">
+                                <i class="fa-solid fa-caret-up"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="menu-report"><a href="/report">신고/건의</a></div>
+            </nav>
+        </div>
+        <div class="navBackground"></div>
+    </section>
+</header>
