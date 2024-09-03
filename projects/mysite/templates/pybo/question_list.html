@@ -4,36 +4,76 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'question_list.css' %}">
 
-<h1>Questions!</h1>
-{% if question_list %}
 <div class="container">
-	<table>
-		<thead>
-			<tr>
-				<th>title</th>
-				<th>views</th>
-				<th>date</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="top">
+		<div class="so-box">
+			<button type="button" title="최신순" class="search-order small_button" data-so="recent">최신순🕐</button>
+			<button type="button" title="추천순" class="search-order small_button" data-so="recommend">추천순👍</button>
+			<button type="button" title="인기순" class="search-order small_button" data-so="hot">인기순🔥</button>
+		</div>
+		<a href="{% url 'pybo:question_create' %}?df={{ cat }}" class="new-question">글쓰기</a>
+	</div>
+	{% if question_list %}
 		{% for question in question_list %}
-			<tr>
-				<td>
-					<a href="{% url 'pybo:detail' question.id %}" class="question-link">{{question.subject}}</a>
-					{% if question.answer_set.count > 0 %}
-						<span class="small">({{question.answer_set.count}})</span>
-					{% endif %}
-				</td>
-				<td>123</td>
-				<td>{{question.create_date|date:"Y.m.d H:i"}}</td>
-			</tr>
+		<div class="post_box">
+			<div class="title_box">
+				<div class="category">{{ question.category.name }}</div>
+				<a href="{% url 'pybo:detail' question.id %}" class="question-link">{{question.subject}}</a>
+				{% if question.answer_set.count > 0 %}
+					<span class="comment_count">{{ question.answer_set.count }}</span>
+				{% endif %}
+			</div>
+			<div class="info_box">
+				<span class="small">{{ question.author.username }}</span>
+				<span class="small">{{ question.create_date|date:"Y.m.d H:i" }}</span>
+				<span class="like_count"><i class="fa-regular fa-thumbs-up"></i>{{ question.voter.count }}</span>
+			</div>
+		</div>
 		{% endfor %}
-		</tbody>
-	</table>
-	<a href="{% url 'pybo:question_create' %}" class="button">Create Question</a>
+	{% else %}
+		<p>게시글 없음</p>
+	{% endif %}
+	<div class="pagination">
+		{% if question_list.has_previous %}
+			<a class="small_button page-link" data-page="{{ question_list.previous_page_number }}" href="#">이전</a>
+		{% else %}
+			<a class="small_button" tabindex="-1" aria-disabled="true" href="#" style="visibility: hidden">이전</a>
+		{% endif %}
+		{% for page_number in question_list.paginator.page_range %}
+		{% if page_number >= question_list.number|add:-2 and page_number <= question_list.number|add:2 %}
+			{% if page_number == question_list.number %}
+				<a class="small_button selected page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+			{% else %}
+				<a class="small_button page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+			{% endif %}
+		{% endif %}
+		{% endfor %}
+		{% if question_list.has_next %}
+			<a class="small_button page-link" data-page="{{ question_list.next_page_number }}" href="#">다음</a>
+		{% else %}
+			<a class="small_button" tabindex="-1" href="#" style="visibility: hidden">다음</a>
+		{% endif %}
+	</div>
+	<div>
+		<div class="search-form">
+			<select name="search-type" class="search-select" id="search-select">
+				<option value="title">제목</option>
+				<option value="title_and_content">제목과 내용</option>
+				<option value="author">글쓴이</option>
+			</select>
+			<input class="search-input" id="search-input" type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
+			<button class="search-button" type="button" id="search-button">찾기</button>
+		</form>
+	</div>
 </div>
-{% else %}
-	<p>No questions available</p>
-{% endif %}
+<form action="{% url 'pybo:index' category=cat %}" method="get" id="search-form">
+	<input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+	<input type="hidden" id="st" name="st" value="{{ st|default_if_none:'' }}">
+	<input type="hidden" id="page" name="page" value="{{ page }}">
+	<input type="hidden" id="so" name="so" value="{{ so|default_if_none:'' }}">
+</form>
 
+{% load static %}
+<script src="{% static 'question_list.js' %}"></script>
+	
 {% endblock %}

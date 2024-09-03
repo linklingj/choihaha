@@ -18,3 +18,11 @@ button:hover {
 	border-radius: 4px;
 	border: 1px solid #ccc;	
 }
+
+.category {
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	border-radius: 4px;
+}

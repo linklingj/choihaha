@@ -1,67 +1,4 @@
 
-/* navbar
-.navbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #333;
-	color: white;
-	padding: 10px 20px;
-}
-
-.logo {
-	font-size: 24px;
-	font-weight: bold;
-}
-
-.menu-button {
-	font-size: 24px;
-	cursor: pointer;
-	display: none;
-}
-
-.menu {
-	display: flex;
-	gap: 15px;
-}
-
-.menu-item {
-	color: white;
-	text-decoration: none;
-}
-
-.menu-item:hover {
-	text-decoration: underline;
-}
-
-@media (max-width: 600px) {
-	.menu {
-		display: none;
-		flex-direction: column;
-		background-color: #333;
-		position: absolute;
-		top: 60px;
-		right: 20px;
-		width: 200px;
-		border-radius: 4px;
-		padding: 10px;
-	}
-
-	.menu-button {
-		display: block;
-	}
-
-	.menu-item {
-		padding: 10px 0;
-		border-bottom: 1px solid #444;
-	}
-
-	.menu-item:last-child {
-		border-bottom: none;
-	}
-}*/
-
-/* 기본 설정 */
 body {
 	margin: 0;
 	padding: 0;
@@ -77,7 +14,7 @@ header {
 }
 
 #toggleBtn {
-	display: none; /* 모바일 스타일링 시 사용할 수 있음 */
+	display: none;
 }
 
 #sub {
@@ -100,6 +37,19 @@ header {
 #sub ul li a {
 	text-decoration: none;
 	color: black;
+}
+
+#sub ul li form {
+	margin: 0;
+}
+
+.logout-btn {
+	text-decoration: none;
+	color: black;
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 #main .logo {
@@ -125,7 +75,7 @@ header {
 }
 
 #nav {
-	width: 100%;
+	width: 800px;
 	background-color: #0097A7;
 }
 
@@ -199,12 +149,12 @@ header {
 	border-top: 1px solid #004D40;
 }
 
-.menu-report {
+#menu-report {
 	display: flex;
 	align-items: center;
 }
 
-.menu-report a {
+#menu-report a {
 	text-decoration: none;
 	color: white;
 }
@@ -237,6 +187,41 @@ header {
 		cursor: pointer;
 	}
 
+	#bg {
+		display: none;
+		position: fixed;
+		width: 100%;
+		display: flex;
+		height: 100vh;
+	}
+
+	#sub {
+		display: none;
+	}
+
+	#nav-bg {
+		flex-grow: 1;
+		width: 30%;
+		background-color: #000000a8;
+		cursor: pointer;
+	}
+
+	#nav {
+		width: 70%;
+		height: 100%;
+		z-index: 3;
+		overflow: auto;
+		overflow-y: scroll;
+	}
+
+	#mobile-only {
+		width: 100%;
+	}
+
+	#mobile-only li a {
+		text-align: center;
+	}
+
 	.navWrap {
 		flex-direction: column;
 		align-items: flex-start;
@@ -253,6 +238,7 @@ header {
 
 	.navWrap ul ul {
 		position: static;
+		display: block;
 	}
 
 	.navWrap ul ul li a {
@@ -268,5 +254,17 @@ header {
 		width: 100%;
 		display: flex;
 		justify-content: flex-end;
+	}
+
+	.logout-btn {
+		text-decoration: none;
+		color: white;
+		background: none;
+		border: none;
+		font-size: 16px;
+		cursor: pointer;
+		text-align: center;
+		width: 100%;
+		height: 100%;
 	}
 }

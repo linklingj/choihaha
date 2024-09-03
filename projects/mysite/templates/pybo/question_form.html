@@ -5,7 +5,7 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'question_form.css' %}">
 <div class="container">
-	<h3>New Question</h3>
+	<h3>새 글 작성</h3>
 	<form method="post">
 		{% csrf_token %}
 		{% if form.errors %}
@@ -18,9 +18,16 @@
 		{% endfor %}
 		</div>
 		{% endif %}
-		<input type="text" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}" class="subject-form" placeholder="Title">
+		<input type="text" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}" class="subject-form" placeholder="제목">
+		<select name="category" class="category" id="category">
+			{% for category in categories %}
+			<option value="{{ category.link_name }}" {% if default == category.link_name %}selected{% endif %}>
+				{{ category.name }}
+			</option>
+			{% endfor %}
+		</select>
 		<textarea name="content" id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
-		<button type="submit">Save</button>
+		<button type="submit">저장</button>
 	</form>
 </div>
 {% endblock %}

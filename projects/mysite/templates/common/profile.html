@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+<script src="{% static 'profile.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+<div class="container">
+	<h3>회원 정보 변경</h3>
+	<div class="profile">
+		<div class="image-box">
+			<img class="account-img" id="account-img" src="{{ user.profile.avatar.url }} ">
+			<label class="pic-label" for="input-pic"></label>
+		</div>
+		<h3>{{ user.username }}</h3>
+		<form action="{% url 'common:profile' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<label for="bio">한 줄 소개</label>
+			<textarea name="bio" id="bio" cols="20" rows="3">{{ user.profile.bio|default_if_none:'' }}</textarea>
+			<input type="file" name="avatar" id="input-pic" accept="image/*" style="display:none">
+			<button type="submit" class="button" style="width: 80px;">수정</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

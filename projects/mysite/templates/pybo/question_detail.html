@@ -1,43 +1,169 @@
 {% extends 'base.html' %}
+{% load pybo_filter %}
 {% block content %}
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'question_detail.css' %}">
-<div class="box">
-	<h1>{{ question.subject }}</h1>
-	<p>{{ question.create_date|date:"Y.m.d" }}</p>
-</div>
-
-<div class="box">
-	<div>
-		{{ question.content }}
-	</div>
-</div>
-
-<h5>Answers ({{ question.answer_set.count }})</h5>
-<div>
-	{% for answer in question.answer_set.all %}
-		<div class="box">
-			<p>{{ answer.create_date|date:"Y.m.d" }}</p>
-			<h6>{{ answer.content }}</h6>
+<div class="container">
+	<div class="box">
+		<div class="title_box">
+			<div class="category">
+				<a href="{% url 'pybo:index' category=question.category.link_name %}">{{ question.category.name }}</a>
+			</div>
+			<h1>{{ question.subject }}</h1>
 		</div>
-	{% endfor %}
+		<div class="question_info">
+			<img class="account-img" src="{{ question.author.profile.avatar.url }} "/>
+			{{ question.author.username }}
+			<p class="small_text">
+				{{ question.create_date|date:"Y.m.d" }}
+				{% if question.modify_date %}
+				(수정 {{ question.modify_date|date:"Y.m.d" }})
+				{% endif %}
+				<i class="fa-regular fa-thumbs-up"></i>
+				{{ question.voter.count }}
+			</p>
+		</div>
+	</div>
+	
+	<div class="box">
+		<div>
+			{{ question.content|mark }}
+		</div>
+		{% if messages %}
+		<div class="alert" role="alert">
+			{% for message in messages %}
+				<ul><li>{{ message.message }}</li></ul>
+			{% endfor %}
+		</div>
+		{% endif %}
+		<div class="vote_box">
+			<a href="{% url 'pybo:question_like' question.id %}" class="button">
+				<span>최하하</span>
+				<span>👍</span>
+			</a>
+			<a href="{% url 'pybo:question_dislike' question.id %}" class="button">
+				<span>최흑흑</span>
+				<span>👎</span>
+			</a>
+			<a href="#" class="button">
+				<span>스크랩</span>
+				<span><i class="fa-regular fa-bookmark"></i></span>
+			</a>
+		</div>
+	</div>
+	{% if question.author == request.user %}
+	<a class="button" href="{% url 'pybo:question_modify' question.id %}">수정</a>
+	<a class="button" href="{% url 'pybo:question_delete' question.id %}">삭제</a>
+	{% endif %}
+	
+	<h5>댓글 ({{ question.answer_set.count }})</h5>
+	<div>
+		{% for answer in question.answer_set.all %}
+			<div class="box">
+				<div class="answer_info_box">
+					<img class="account-img" src="{{ answer.author.profile.avatar.url }} "/>
+					{{ answer.author.username }}
+					<p class="small_text">{{ answer.create_date|date:"Y.m.d" }}
+						<i class="fa-regular fa-thumbs-up"></i>{{ answer.voter.count }}</p>
+				</div>
+				<div class="answer_content_box">
+					<div>{{ answer.content|mark }}</div>
+					<div class="answer_right">
+						{% if request.user %}
+						<a class="small_button" href="{% url 'pybo:answer_like' answer.id %}">
+							<!-- need fix -->
+							{% if answer.user_liked %}
+								<i class="fa-solid fa-thumbs-up"></i>
+							{% else %}
+								<i class="fa-regular fa-thumbs-up"></i>
+							{% endif %}
+						</a>
+						<a class="small_button" href="{% url 'pybo:answer_dislike' answer.id %}">
+							<!-- need fix -->
+							{% if answer.user_liked %}
+								<i class="fa-solid fa-thumbs-down"></i>
+							{% else %}
+								<i class="fa-regular fa-thumbs-down"></i>
+							{% endif %}
+						</a>
+						<button class="small_button make_comment" onclick="commentButton({{forloop.counter0}})">댓글</button>
+						
+						{% endif %}
+						{% if answer.author == request.user %}
+						<a class="small_button" style="height:18px" href="{% url 'pybo:answer_delete' answer.id %}">삭제</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="answer_comment_box" style="display:none">
+					<form action="{% url 'pybo:comment_create' answer.id %}" method="post">
+						{% csrf_token %}
+						{% if form.errors %}
+						<div class="alert" role="alert">error</div>
+						{% endif %}
+						<textarea name="content" id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+						<button type="submit" class="small_button">댓글 작성</button>
+						<button type="button" class="small_button" onclick="hideButton({{forloop.counter0}})">숨기기</button>
+					</form>
+				</div>
+			</div>
+			{% for comment in answer.comment_set.all %}
+				<div class="comment_box">
+					<div class="comment_info_box">
+						<img class="account-img" src="{{ comment.author.profile.avatar.url }} "/>
+						{{ comment.author.username }}
+						<p class="small_text">{{ comment.create_date|date:"Y.m.d" }}
+						<i class="fa-regular fa-thumbs-up"></i>{{ comment.voter.count }}</i></p>
+					</div>
+					<div class="comment_content_box">
+						<div>{{ comment.content|mark }}</div>
+						<div class="comment_right">
+							{% if request.user %}
+							<a class="small_button" href="{% url 'pybo:comment_like' comment.id %}">
+								<!-- need fix -->
+								{% if comment.user_liked %}
+									<i class="fa-solid fa-thumbs-up"></i>
+								{% else %}
+									<i class="fa-regular fa-thumbs-up"></i>
+								{% endif %}
+							</a>
+							<a class="small_button" href="{% url 'pybo:comment_dislike' comment.id %}">
+								<!-- need fix -->
+								{% if comment.user_liked %}
+									<i class="fa-solid fa-thumbs-down"></i>
+								{% else %}
+									<i class="fa-regular fa-thumbs-down"></i>
+								{% endif %}
+							</a>
+							{% endif %}
+							{% if comment.author == request.user %}
+								<a class="small_button" href="{% url 'pybo:comment_delete' comment.id %}">삭제</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+	
+	<form action="{% url 'pybo:answer_create' question.id %}" method="post">
+		{% csrf_token %}
+		{% if form.errors %}
+		<div class="alert" role="alert">
+		{% for field in form %}
+			{% if field.errors %}
+			<strong>{{field.label}}</strong>
+			{{field.errors}}
+			{% endif %}
+		{% endfor %}
+		</div>
+		{% endif %}
+		<textarea name="content" id="content" {% if not user.is_authenticated %}disabled{% endif %} rows="15"></textarea>
+		<input type="submit" value="등록"></input>
+	</form>
 </div>
 
-<form action="{% url 'pybo:answer_create' question.id %}" method="post">
-	{% csrf_token %}
-	{% if form.errors %}
-	<div class="alert" role="alert">
-	{% for field in form %}
-		{% if field.errors %}
-		<strong>{{field.label}}</strong>
-		{{field.errors}}
-		{% endif %}
-	{% endfor %}
-	</div>
-	{% endif %}
-	<textarea name="content" id="content" rows="15"></textarea>
-	<input type="submit" value="Answer"></input>
-</form>
+{% load static %}
+<script src="{% static 'question_detail.js' %}"></script>
 
 {% endblock %}
