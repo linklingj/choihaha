@@ -1,0 +1,272 @@
+
+/* navbar
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #333;
+	color: white;
+	padding: 10px 20px;
+}
+
+.logo {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.menu-button {
+	font-size: 24px;
+	cursor: pointer;
+	display: none;
+}
+
+.menu {
+	display: flex;
+	gap: 15px;
+}
+
+.menu-item {
+	color: white;
+	text-decoration: none;
+}
+
+.menu-item:hover {
+	text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+	.menu {
+		display: none;
+		flex-direction: column;
+		background-color: #333;
+		position: absolute;
+		top: 60px;
+		right: 20px;
+		width: 200px;
+		border-radius: 4px;
+		padding: 10px;
+	}
+
+	.menu-button {
+		display: block;
+	}
+
+	.menu-item {
+		padding: 10px 0;
+		border-bottom: 1px solid #444;
+	}
+
+	.menu-item:last-child {
+		border-bottom: none;
+	}
+}*/
+
+/* 기본 설정 */
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	background-color: white;
+}
+
+#toggleBtn {
+	display: none; /* 모바일 스타일링 시 사용할 수 있음 */
+}
+
+#sub {
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+}
+
+#sub ul {
+	display: flex;
+	margin: 10px 0px 10px 0px;
+	padding: 0px;
+	justify-content: flex-end;
+}
+
+#sub ul li {
+	display: flex;
+	margin-right: 10px;
+}
+
+#sub ul li a {
+	text-decoration: none;
+	color: black;
+}
+
+#main .logo {
+	margin: 20px 0;
+}
+
+#main .logo a {
+	text-decoration: none;
+	color: black;
+	display: flex;
+	align-items: baseline;
+}
+
+#main .logo .title {
+	font-size: 32px;
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+#main .logo .betaText {
+	font-size: 16px;
+	color: gray;
+}
+
+#nav {
+	width: 100%;
+	background-color: #0097A7;
+}
+
+.navWrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 10px 20px;
+}
+
+.navWrap nav {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.navWrap ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+}
+
+.navWrap ul.mypage {
+	margin-left: auto;
+}
+
+.navWrap ul.mypage li {
+	margin-left: 20px;
+}
+
+.navWrap ul li {
+	position: relative;
+}
+
+.navWrap ul li a {
+	text-decoration: none;
+	color: white;
+	padding: 10px 15px;
+	display: block;
+}
+
+.navWrap ul li:hover > ul {
+	display: block;
+}
+
+.navWrap ul ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	border: 2px solid #0097A7;
+	background-color: white;
+	min-width: 200px;
+	z-index: 1000;
+	border-radius: 0 0 4px 4px;
+}
+
+.navWrap ul ul li a {
+	padding: 10px;
+	color: black;
+	font-weight: normal;
+}
+
+.navWrap ul ul li hr {
+	margin: 0;
+	border: none;
+	border-top: 1px solid #004D40;
+}
+
+.menu-report {
+	display: flex;
+	align-items: center;
+}
+
+.menu-report a {
+	text-decoration: none;
+	color: white;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+}
+
+.menu a {
+	font-weight: bold;
+}
+
+.dropdownBtn {
+	display: none;
+}
+
+.navBackground {
+	display: none;
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+	#toggleBtn {
+		display: block;
+		position: absolute;
+		top: 15px;
+		right: 20px;
+		font-size: 24px;
+		cursor: pointer;
+	}
+
+	.navWrap {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.navWrap ul {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.navWrap ul li {
+		width: 100%;
+	}
+
+	.navWrap ul ul {
+		position: static;
+	}
+
+	.navWrap ul ul li a {
+		padding: 10px 20px;
+	}
+
+	.navWrap ul ul li hr {
+		margin: 0;
+	}
+
+	.navWrap ul.mypage {
+		margin-left: 0;
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+	}
+}
