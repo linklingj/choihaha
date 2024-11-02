@@ -23,3 +23,5 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(related_name='voter_comment', to=settings.AUTH_USER_MODEL),
         ),
     ]
+
+#aaaa
