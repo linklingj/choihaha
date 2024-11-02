@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-=$)3wl6&nf6y@yxm07g*+6bl3py%eq%owi1^yt2*$45-s-97ew
 DEBUG = True
 
 ALLOWED_HOSTS = [
-     '.replit.dev'
+     '.replit.dev',
+     '.localhost'
 ]
 
 
