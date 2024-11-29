@@ -1,10 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = [
-    '.replit.dev',
-    '.localhost',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = ['43.201.203.109']
 
 DEBUG = False
 
