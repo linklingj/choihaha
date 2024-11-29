@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
      '.replit.dev',
      '.localhost',
-     '127.0.0.1'
+     '127.0.0.1',
+     '43.201.203.109'
 ]
 
 
