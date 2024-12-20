@@ -1,4 +1,5 @@
-
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "django_migrations" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" datetime NOT NULL);
 INSERT INTO django_migrations VALUES(1,'contenttypes','0001_initial','2024-07-03 13:35:32.208570');
 INSERT INTO django_migrations VALUES(2,'auth','0001_initial','2024-07-03 13:35:32.268970');

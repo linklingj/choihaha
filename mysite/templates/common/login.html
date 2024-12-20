@@ -14,6 +14,7 @@
 			<input type="password" name="password" id="password" class="form-control" value="{{ form.password.value|default_if_none:'' }}">
 		</div>
 		<button type="submit" class="button" style="width: 80px;">로그인</button>
+        <a href="{% url 'common:googlelogin' %}" class="googlelogin"><i class="fa-brands fa-google"></i> 계정으로 로그인</a>
 	</form>
 </div>
 {% endblock %}
