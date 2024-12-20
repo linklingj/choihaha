@@ -13,7 +13,7 @@ import requests
 
 GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = config("GOOGLE_CLIENT_SECRET")
-REDIRECT_URI = "http://localhost:8000/common/oauth/callback"
+REDIRECT_URI = config("REDIRECT_URI")
 
 def signup(request):
     if request.method == "POST":
